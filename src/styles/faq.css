@@ -1,0 +1,25 @@
+.centered_col {
+
+}
+
+.card {
+    border-top: 10px solid #094A83!important;
+    border-left: 1px solid #094A83!important;
+    border-right: 1px solid #094A83!important;
+    border-bottom: 1px solid #094A83!important;
+    border-radius: 0px!important;
+}
+
+.card-body {
+    padding: 2rem 2rem;
+}
+
+.card-title {
+    color: black;
+    font-weight: 900;
+    padding-bottom: 10px;
+}
+
+.card-text {
+    text-align: justify;
+}
