@@ -1,0 +1,13 @@
+label {
+   font-family: 'Roboto', sans-serif;
+   font-weight: 600;
+   color: black;
+   line-height: 30px; 
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #084A83;
+    border-radius: .025em!important;
+}
