@@ -280,7 +280,7 @@ const Home = () => {
             </Form>
         </Container>
 
-        <div style={{paddingBottom: "300px"}}></div>
+        <div style={{paddingBottom: "100px"}}></div>
         </>
     )
 }

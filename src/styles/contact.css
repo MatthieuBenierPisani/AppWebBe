@@ -1,0 +1,18 @@
+.envelope-square-solid {
+    position: absolute;
+    width: 66px;
+    height: 66.32px;
+    left: 360px;
+    top: 643.16px;
+}
+
+.envelope-square-solid-vector {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 6.25%;
+    bottom: 6.25%;
+    background: #084A83;
+}
+
+
