@@ -8,3 +8,7 @@
 body {
   background: #EBF5FF!important;
 }
+
+a:hover {
+  color: #084A83!important;
+}
