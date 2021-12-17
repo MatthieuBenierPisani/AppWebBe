@@ -1,0 +1,23 @@
+.envelope-square-solid {
+    position: absolute;
+    width: 66px;
+    height: 66.32px;
+    left: 360px;
+    top: 643.16px;
+}
+
+.envelope-square-solid-vector {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 6.25%;
+    bottom: 6.25%;
+    background: #084A83;
+}
+
+.account-col {
+    box-shadow: 14px 18px 0px -2px rgba(8,74,131,1);
+    -webkit-box-shadow: 14px 18px 0px -2px rgba(8,74,131,1);
+    -moz-box-shadow: 14px 18px 0px -2px rgba(8,74,131,1);
+    margin-bottom: 200px;
+}

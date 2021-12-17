@@ -24,7 +24,7 @@ const Sidebar = ({ isOpen, toggle }) => {
                     </SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
-                    <SidebarRoute to="/se-connecter" onClick={toggle}>Se connecter</SidebarRoute>
+                    <SidebarRoute to="/login" onClick={toggle}>Se connecter</SidebarRoute>
                 </SideBtnWrap>
             </SidebarWrapper>
         </SidebarContainer>

@@ -23,7 +23,7 @@ const Navbar = ({ toggle }) => {
                     <NavLink to='/mon-compte' activeStyle>
                         Mon compte
                     </NavLink>
-                    <NavBtnLink to='/se-connecter'>Se connecter</NavBtnLink>
+                    <NavBtnLink to='/login'>Se connecter</NavBtnLink>
                 </NavMenu>
             </Nav>
         </>
