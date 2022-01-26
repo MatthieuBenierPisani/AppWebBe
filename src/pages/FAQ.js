@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-
+import { userContext } from './userContext';
 import '../styles/faq.css'
 
 const FAQ = () => {

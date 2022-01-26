@@ -25,6 +25,17 @@ export function FooterContainer() {
                         <img src={Logo}/>
                     </Footer.Column>
                 </Footer.LogoRow>
+                <Footer.Row>
+                    <Footer.Column>
+                        <Footer.Title><a href="login" style={{color: "black", textDecoration: "none"}}>Se créer un compte</a></Footer.Title>
+                    </Footer.Column>
+                    <Footer.Column>
+                        <Footer.Title><a href="creation-point-relais" style={{color: "black", textDecoration: "none"}}>Créer un point relais</a></Footer.Title>
+                    </Footer.Column>
+                    <Footer.Column>
+                        <Footer.Title><a href="edition-point-relais" style={{color: "black", textDecoration: "none"}}>Gestion de points relais</a></Footer.Title>
+                    </Footer.Column>
+                </Footer.Row>
             </Footer.Wrapper>
         </Footer>
     )

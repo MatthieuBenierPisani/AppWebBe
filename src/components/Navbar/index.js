@@ -1,8 +1,13 @@
-import React from 'react'
+import React, {useState, useContext} from 'react';
 import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from './NavbarElements'
 import Logo from './logo.png';
+import { userContext } from '../../pages/userContext';
+import { utils } from '../../pages/utils';
 
 const Navbar = ({ toggle }) => {
+
+    const {user, setUser} = useContext(userContext)
+
     return (
         <>
             <Nav>
@@ -20,10 +25,19 @@ const Navbar = ({ toggle }) => {
                     <NavLink to='/contact' activeStyle>
                         Nous contacter
                     </NavLink>
+
+
+                    {user ? (
                     <NavLink to='/mon-compte' activeStyle>
-                        Mon compte
+                    <pre>{JSON.stringify(user, null, 2)}</pre>
                     </NavLink>
-                    <NavBtnLink to='/login'>Se connecter</NavBtnLink>
+                    ) : ( <p></p>
+                    )}
+                    {user ? (
+                    <NavBtnLink onClick={() => {setUser()}} to='/accueil'>Se déconnecter</NavBtnLink>
+                    ) : ( <NavBtnLink to='/login'>Se connecter</NavBtnLink>
+                    )}
+                    
                 </NavMenu>
             </Nav>
         </>

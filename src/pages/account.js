@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -9,7 +10,9 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from 'axios';
 
 import '../styles/account.css'
 
@@ -20,6 +23,45 @@ const Account = () => {
       setIsOpen(!isOpen)
   }
 
+  let tooken = localStorage.getItem('jwtToken');
+  let userPhoneNumber = localStorage.getItem('userPhone');
+  const [userId, setUserId] = useState(""); 
+  const [userEmail, setUserEmail] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userName, setUserName] = useState("");
+  const [newUserPhone, setNewUserPhone] = useState("");
+  const [newUserName, setNewUserName] = useState("");
+
+  useEffect(() => {
+    Axios.get('http://91.121.71.10:3000/professional', {
+      headers: {"Authorization" : `Bearer ${tooken}`} 
+    })
+    .then((response) => {
+      setUserId(response.data.professionalProfile._id);
+      setUserEmail(response.data.userProfile.email);
+      setUserPhone(response.data.professionalProfile.phoneNumber);
+      setUserName(response.data.professionalProfile.professionalName);
+    }, (error) => {
+      console.log(error);
+    },
+    );
+  })
+
+  async function changeUserInfo() {
+    let item = {newUserName, newUserPhone}
+    let result = await fetch("http://91.121.71.10:3000/professional", {
+      method:'PUT',
+      body: JSON.stringify(item),
+      headers: {
+        "Authorization": `Bearer ${tooken}`
+      }
+    });
+    result = await result.json();
+    console.log(newUserName);
+    setUserName(newUserName);
+    setUserName(newUserPhone);
+  }
+
   return (
       <>
       <Sidebar isOpen={isOpen} toggle={toggle}/>
@@ -28,7 +70,7 @@ const Account = () => {
       <Container className="mt-5 mb-5 my-auto" align="center">
         <Row>
           <Tab.Container defaultActiveKey="first">
-            <Col md={3} style={{border: "1px solid #084A83", background: "white", height: "150px"}}>
+            <Col md={3} style={{border: "1px solid #084A83", background: "white", height: "180px"}}>
               <Nav variant="pills" className="flex-column" align="left">
                 <Nav.Item>
                   <Nav.Link eventKey="first">Informations personnelles</Nav.Link>
@@ -39,6 +81,9 @@ const Account = () => {
                 <Nav.Item>
                   <Nav.Link eventKey="third">Supprimer le compte</Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="fourth">Mes points relais</Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
             <Col className="account-col" md={{ span: 7, offset: 1 }} style={{border: "1px solid #084A83", background: "white"}}>
@@ -48,29 +93,21 @@ const Account = () => {
                   <Form style={{textAlign: "left"}}>
                     <Form.Group className="mb-3" controlId="formBasicIdentifiant">
                       <Form.Label>Identifiant</Form.Label>
-                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="name" placeholder="Utilisateur 1234"/>
+                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="name" placeholder={userId} disabled/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicName">
-                      <Form.Label>Prénom</Form.Label>
-                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="name" placeholder="Jean" />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicName">
-                      <Form.Label>Nom</Form.Label>
-                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="name" placeholder="Pierre" />
+                      <Form.Label>Nom professionnel</Form.Label>
+                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} onChange={(e) => setNewUserName(e.target.value)} type="name" placeholder={userName} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label>Email</Form.Label>
-                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="email" placeholder="jeanpierre@gmail.com" />
+                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="email" placeholder={userEmail} disabled />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicName">
                       <Form.Label>Numéro de téléphone</Form.Label>
-                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="name" placeholder="01 02 03 04 05" />
+                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} onChange={(e) => setNewUserPhone(e.target.value)} type="name" placeholder={userPhoneNumber} />
                     </Form.Group>
-                    <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label>Photo de profil</Form.Label>
-                      <Form.Control style={{color: "#212529", borderBottom: "1px solid #084A83", borderRadius: ".025rem", backgroundColor: "#EBF5FF"}} type="file" />
-                    </Form.Group>
-                    <Button variant="primary" type="submit" style={{background: "#084A83", borderRadius: "0px", marginTop: "10px", marginBottom: "10px"}}>
+                    <Button onClick={changeUserInfo} type="button" variant="primary" style={{background: "#084A83", borderRadius: "0px", marginTop: "10px", marginBottom: "10px"}}>
                       Enregistrer les modifications
                     </Button>
                   </Form>
@@ -115,6 +152,15 @@ const Account = () => {
                         Supprimer le compte
                       </Button>
                     </Form>
+                </Tab.Pane>
+                <Tab.Pane eventKey="fourth">
+                  <p className="display-6" style={{fontFamily: "'Roboto' sans-serif;", color: "black", fontWeight: "700", textAlign: "left", paddingBottom: "20px", paddingTop: "20px", fontSize: "22px"}}>Mes points relais</p>
+                  <p style={{textAlign: "left"}}>Vous disposez actuellement de 0 point(s) relais</p>
+                      <Link to="tous-les-points-relais">
+                        <Button variant="primary" type="submit" style={{background: "#084A83", borderRadius: "0px", marginTop: "10px", marginBottom: "10px"}}>
+                            Gérer mes points relais
+                        </Button>
+                      </Link>
                 </Tab.Pane>
               </Tab.Content>
             </Col>
